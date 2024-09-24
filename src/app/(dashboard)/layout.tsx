@@ -21,8 +21,8 @@ export default function DashboardLayout({
         </Link>
         <Menu />
       </div>
-      {/* Оснавная часть страницы */}
-      <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-[#E5EFF4] overflow-scroll">
+      {/* Основная часть страницы */}
+      <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-[#E5EFF4] overflow-scroll flex flex-col">
         <Navbar />
         {children}
       </div>
