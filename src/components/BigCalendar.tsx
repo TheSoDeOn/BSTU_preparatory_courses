@@ -21,6 +21,7 @@ const BigCalendar = () => {
     setView(selectedView);
   };
 
+
   return (
     <Calendar
       localizer={localizer}
@@ -49,8 +50,7 @@ const BigCalendar = () => {
         monthHeaderFormat: (date) => getMonthFormat(date),
         dayFormat: getWeekDayFormat,
         eventTimeRangeFormat: ({ start, end }) => {
-          return `${moment(start).format("HH:mm")} -
-           ${moment(end).format("HH:mm")}`;
+          return `${moment(start).format("HH:mm")} - ${moment(end).format("HH:mm")}`;
         },
       }}
     />

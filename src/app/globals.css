@@ -32,14 +32,20 @@
   font-size: 13px !important;
 }
 
+.rbc-btn-group:first-child {
+  display: none !important;
+}
+
 .rbc-btn-group:last-child button {
   border: none !important;
-  background-color: #f1f0ff !important;
+  background-color: #71c1f0 !important;
+  color: white !important;
   margin-left: 2px !important;
 }
 
 .rbc-toolbar button.rbc-active {
-  background-color: #dbdafe !important;
+  background-color: #53AADF !important;
+  color: white !important;
   box-shadow: none !important;
 }
 
@@ -78,7 +84,6 @@
   margin: 10px !important;
   width: 99% !important;
 }
-
 
 .rbc-event:nth-child(1) {
   background-color: #e2f8ff !important;

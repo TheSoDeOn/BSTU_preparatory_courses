@@ -15,7 +15,9 @@ const config: Config = {
       },
       colors:{
         blueBSTU:"#122C53",
-        skyBlueBSTU:"#53AADF"
+        skyBlueBSTU:"#53AADF",
+        white:"#FFFF",
+        verySkyBlue: "#E5EFF4"
       }
     },
   },
