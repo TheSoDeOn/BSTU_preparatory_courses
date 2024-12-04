@@ -20,7 +20,7 @@ const menuItems = [
       },
       {
         icon: "/student.png",
-        label: "Ученики",
+        label: "Студенты",
         href: "/list/students",
         visible: ["admin", "teacher"],
       },
