@@ -62,7 +62,7 @@ const renderRow = (item: TeacherList) => (
       />
       <div className="flex flex-col">
         <h3 className="font-semibold">
-          {`${item.name} ${item.surname} ${item.patronymic}`}
+          {`${item.surname} ${item.name} ${item.patronymic}`}
         </h3>
         <p className="text-xs text-gray-500">{item?.email}</p>
       </div>

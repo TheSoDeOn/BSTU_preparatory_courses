@@ -13,13 +13,13 @@
 }
 
 .react-calendar__tile--active {
-  background-color: #53AADF !important;
+  background-color: #53aadf !important;
   color: white !important;
   border-radius: 15%;
 }
 
 .react-calendar__tile--now {
-  background-color: #E5EFF4 !important;
+  background-color: #e5eff4 !important;
   color: black !important;
   border-radius: 15%;
 }
@@ -44,7 +44,7 @@
 }
 
 .rbc-toolbar button.rbc-active {
-  background-color: #53AADF !important;
+  background-color: #53aadf !important;
   color: white !important;
   box-shadow: none !important;
 }
@@ -110,7 +110,15 @@
   background-color: #fdf2fb !important;
 }
 
-.rbc-event-label{
+.rbc-event-label {
   color: gray !important;
   margin-bottom: 5px;
+}
+
+.bgWrap {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: -1;
 }
