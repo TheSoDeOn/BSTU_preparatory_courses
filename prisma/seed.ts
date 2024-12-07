@@ -60,11 +60,12 @@ async function main() {
       data: {
         id: `teacher${i}`, // Unique ID for the teacher
         username: `teacher${i}`,
-        name: `Препод${i}`,
+        name: `Максим${i}`,
         surname: `Панченко${i}`,
+        patronymic: `Владимирович`,
         email: `teacher${i}@example.com`,
         phone: `123-456-789${i}`,
-        adress: `Address${i}`,
+        address: `Address${i}`,
         sex: i % 2 === 0 ? UserSex.MALE : UserSex.FEMALE,
         subjects: { connect: [{ id: (i % 10) + 1 }] }, 
         classes: { connect: [{ id: (i % 6) + 1 }] }, 
@@ -99,10 +100,11 @@ async function main() {
         id: `parentId${i}`,
         username: `parentId${i}`,
         name: `PName ${i}`,
+        patronymic: `Владимирович`,
         surname: `PSurname ${i}`,
         email: `parent${i}@example.com`,
         phone: `123-456-789${i}`,
-        adress: `Address${i}`,
+        address: `Address${i}`,
       },
     });
   }
@@ -113,11 +115,12 @@ async function main() {
       data: {
         id: `student${i}`, 
         username: `student${i}`, 
-        name: `SName${i}`,
-        surname: `SSurname ${i}`,
+        name: `Вадим${i}`,
+        surname: `Ливенский ${i}`,
+        patronymic: `Николаевич`,
         email: `student${i}@example.com`,
         phone: `987-654-321${i}`,
-        adress: `Address${i}`,
+        address: `Address${i}`,
         discountPercent: 0,
         sex: i % 2 === 0 ? UserSex.MALE : UserSex.FEMALE,
         parentId: `parentId${Math.ceil(i / 2) % 25 || 25}`, 

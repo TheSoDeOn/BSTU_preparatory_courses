@@ -5,7 +5,7 @@ import Table from "@/components/Table";
 import Link from "next/link";
 import FormModal from "@/components/FormModal";
 import { role, teachersData } from "@/lib/data";
-import { Class, Subject, Teacher } from "@prisma/client";
+import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEMS_PER_PAGE } from "@/lib/settings";
 
@@ -61,19 +61,21 @@ const renderRow = (item: TeacherList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       />
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.name + " " + item.surname}</h3>
+        <h3 className="font-semibold">
+          {`${item.name} ${item.surname} ${item.patronymic}`}
+        </h3>
         <p className="text-xs text-gray-500">{item?.email}</p>
       </div>
     </td>
     <td className="hidden md:table-cell">{item.username}</td>
     <td className="hidden md:table-cell">
-      {item.subjects.map((subject) => subject.name).join(",")}
+      {item.subjects.map((subject) => subject.name).join(", ")}
     </td>
     <td className="hidden md:table-cell">
-      {item.classes.map((classItem) => classItem.name).join(",")}
+      {item.classes.map((classItem) => classItem.name).join(", ")}
     </td>
     <td className="hidden md:table-cell">{item.phone}</td>
-    <td className="hidden md:table-cell">{item.adress}</td>
+    <td className="hidden md:table-cell">{item.address}</td>
     <td>
       <div className="flex items-center gap-2">
         <Link href={`/list/teachers/${item.id}`}>
@@ -98,8 +100,32 @@ const TeacherListPage = async ({
 
   const p = page ? parseInt(page) : 1;
 
+  // URL-параметры
+
+  const query: Prisma.TeacherWhereInput = {};
+
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value !== undefined) {
+        switch (key) {
+          case "classid":
+            query.lessons = {
+              some: {
+                classId: parseInt(value),
+              },
+            };
+            break;
+          case "search":
+            query.surname = {contains:value, mode:"insensitive"};
+            break;
+        }
+      }
+    }
+  }
+
   const [data, count] = await prisma.$transaction([
     prisma.teacher.findMany({
+      where: query,
       include: {
         subjects: true,
         classes: true,
@@ -107,7 +133,7 @@ const TeacherListPage = async ({
       take: ITEMS_PER_PAGE,
       skip: ITEMS_PER_PAGE * (p - 1),
     }),
-    prisma.teacher.count(),
+    prisma.teacher.count({ where: query }),
   ]);
 
   return (
@@ -131,7 +157,7 @@ const TeacherListPage = async ({
       {/* таблица */}
       <Table columns={columns} renderRow={renderRow} data={data} />
       {/* управление страницами таблицы */}
-      <Pagination page={p} count={count}/>
+      <Pagination page={p} count={count} />
     </div>
   );
 };

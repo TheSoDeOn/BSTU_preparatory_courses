@@ -109,11 +109,11 @@ const SingleStudentsPage = () => {
         <div className="bg-white p-4 rounded-md">
             <h1 className="text-xl font-semibold">Ссылки</h1>
             <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
-                <Link className="p-3 rounded-md bg-verySkyBlue" href="/">Занятия</Link>
-                <Link className="p-3 rounded-md bg-verySkyBlue" href="/">Преподаватели</Link>
-                <Link className="p-3 rounded-md bg-verySkyBlue" href="/">Результаты</Link>
-                <Link className="p-3 rounded-md bg-verySkyBlue" href="/">Экзаменов</Link>
-                <Link className="p-3 rounded-md bg-verySkyBlue" href="/">Задания</Link>
+                <Link className="p-3 rounded-md bg-verySkyBlue" href={`/list/lessons?classid=${2}`}>Занятия</Link>
+                <Link className="p-3 rounded-md bg-verySkyBlue" href={`/list/teachers?classid=${2}`}>Преподаватели</Link>
+                <Link className="p-3 rounded-md bg-verySkyBlue" href={`/list/results?classid=${2}`}>Результаты</Link>
+                <Link className="p-3 rounded-md bg-verySkyBlue" href={`/list/exams?classid=${2}`}>Экзамены</Link>
+                <Link className="p-3 rounded-md bg-verySkyBlue" href={`/list/assignments?studentid=${"student2"}`}>Задания</Link>
             </div>
         </div>
         <Announcements/>
