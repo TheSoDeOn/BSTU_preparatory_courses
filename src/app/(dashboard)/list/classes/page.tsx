@@ -1,3 +1,4 @@
+import FormContainer from "@/components/FormContainer";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
@@ -5,10 +6,11 @@ import TableSearch from "@/components/TableSearch";
 import prisma from "@/lib/prisma";
 import { ITEMS_PER_PAGE } from "@/lib/settings";
 import { auth } from "@clerk/nextjs/server";
-import { Class, Prisma, Teacher } from "@prisma/client";
+import { Class, Grade, Prisma, Teacher } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 
-type ClassListPage = Class & { supervisor: Teacher };
+type ClassListPage = Class & { supervisor: Teacher; grade: Grade };
 
 const ClassListPage = async ({
   searchParams,
@@ -25,7 +27,7 @@ const ClassListPage = async ({
 
   const columns = [
     {
-      header: "Класс",
+      header: "Группа подготовки",
       accessor: "name",
     },
     {
@@ -62,8 +64,11 @@ const ClassListPage = async ({
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModal table="class" type="update" data={item} />
-              <FormModal table="class" type="delete" id={item.id} />
+            <Link className="w-8 h-8 flex items-center justify-center rounded-full bg-skyBlueBSTU" href={`/list/students?classId=${item.id}`}>
+              <Image src="/view.png" alt="" width={14} height={14} />
+            </Link>
+              <FormContainer table="class" type="update" data={item} />
+              <FormContainer table="class" type="delete" id={item.id} />
             </>
           )}
         </div>
@@ -118,7 +123,7 @@ const ClassListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-blueBSTU">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && <FormModal table="class" type="create" />}
+            {role === "admin" && <FormContainer table="class" type="create" />}
           </div>
         </div>
       </div>

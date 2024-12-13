@@ -1,3 +1,6 @@
+import DownloadButton from "@/components/DownloadButton";
+import DownloadButtonJson from "@/components/DownloadButtonJson";
+import FormContainer from "@/components/FormContainer";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
@@ -20,7 +23,6 @@ const StudentListPage = async ({
 
   const { userId, sessionClaims } = await auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
-  const currentUserId = userId;
 
   const p = page ? parseInt(page) : 1;
 
@@ -30,12 +32,12 @@ const StudentListPage = async ({
       accessor: "info",
     },
     {
-      header: "ID",
+      header: "Имя пользователя",
       accessor: "studentId",
       className: "hidden md:table-cell",
     },
     {
-      header: "Класс",
+      header: "Группа подготовки",
       accessor: "grade",
       className: "hidden md:table-cell",
     },
@@ -91,12 +93,13 @@ const StudentListPage = async ({
             </button>
           </Link>
           {role === "admin" && (
-            <FormModal table="student" type="delete" id={item.id} />
+            <FormContainer table="student" type="delete" id={item.id} />
           )}
         </div>
       </td>
     </tr>
   );
+
 
   // URL-параметры
 
@@ -118,6 +121,9 @@ const StudentListPage = async ({
           case "search":
             query.surname = { contains: value, mode: "insensitive" };
             break;
+          case "classId":
+            query.classId = parseInt(value);
+            break;
         }
       }
     }
@@ -135,6 +141,13 @@ const StudentListPage = async ({
     prisma.student.count({ where: query }),
   ]);
 
+  const excelData = await prisma.student.findMany({
+    where: query,
+    include: {
+      class: true,
+      parent: true,
+    }});
+
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* ВВЕРХ */}
@@ -149,7 +162,9 @@ const StudentListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-blueBSTU">
               <Image src="/sort.png" alt="" width={17} height={17} />
             </button>
-            {role === "admin" && <FormModal table="student" type="create" />}
+            {role === "admin" && <FormContainer table="student" type="create" />}
+            <DownloadButton data={excelData} />
+            <DownloadButtonJson data={excelData} />
           </div>
         </div>
       </div>

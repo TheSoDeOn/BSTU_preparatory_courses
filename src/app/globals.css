@@ -80,9 +80,10 @@
 .rbc-event {
   border: none !important;
   color: black !important;
-  padding: 10px !important;
   margin: 10px !important;
   width: 99% !important;
+  max-height: 8% !important;
+  max-width: 95% !important;
 }
 
 .rbc-event:nth-child(1) {
@@ -121,4 +122,8 @@
   width: 100vw;
   overflow: hidden;
   z-index: -1;
+}
+
+.input-field-none {
+  display: none;
 }

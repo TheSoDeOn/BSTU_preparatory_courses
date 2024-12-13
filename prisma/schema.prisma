@@ -44,7 +44,7 @@ model Teacher {
   patronymic String?
   email      String?   @unique // Необязательное поле
   phone      String    @unique
-  address     String
+  address    String
   img        String    @default("/avatar.png")
   sex        UserSex
   createdAt  DateTime  @default(now())
